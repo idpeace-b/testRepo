@@ -1,0 +1,24 @@
+name: Run Test Classes
+
+on:
+  push:
+    paths:
+      - force-app/**
+
+jobs:
+  run-test-classes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Install SFDX
+        run: |
+          npm install --global sfdx-cli
+          sf --version
+      - name: Login To Org
+        run: |
+          sf org login sfdx-url --set-default --url-file <(echo "${{ secrets.SFDX_AUTH_URL_IDPEACE }}")
+      - name: Run Test Classes
+        run: |
+          sf apex run test -l RunLocalTests -w 15
