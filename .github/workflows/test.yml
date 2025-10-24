@@ -6,7 +6,16 @@ on:
       - master
     paths:
       - force-app/**
-  #workflow_dispatch:  
+  workflow_dispatch:
+    inputs:
+      Apexclasses:
+        description: 'Comma-separated Apex classes to deploy'
+        required: true
+        default: 'MyClass1,MyClass2'
+      Apextests:
+        description: 'Comma-separated test classes to run'
+        required: true
+        default: 'MyClass1Test,MyClass2Test'  
 
 jobs:
   run-test-classes:
@@ -31,3 +40,11 @@ jobs:
       - name: Run validation
         run: |
           sf project deploy validate --manifest manifest/package.xml
+      - name: Deploy Selected Classes
+        run: |
+          echo "Deploying Apexclasses: ${{ github.event.inputs.Apexclasses }}"
+          echo "Running Apextests: ${{ github.event.inputs.Apextests }}"
+          sf project deploy validate --manifest manifest/package.xml
+            --metadata ApexClass:${{ github.event.inputs.Apexclasses }} \
+            --testlevel RunSpecifiedTests \
+            --runtests ${{ github.event.inputs.Apextests }}
