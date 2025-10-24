@@ -42,9 +42,6 @@ jobs:
       #    sf project deploy validate --manifest manifest/package.xml
       - name: Deploy Selected Classes
         run: |
-          echo "Deploying Apexclasses: ${{ github.event.inputs.Apexclasses }}"
-          echo "Running Apextests: ${{ github.event.inputs.Apextests }}"
-          sf project deploy validate
-            --metadata ApexClass:${{ github.event.inputs.Apexclasses }} \
-            --testlevel RunSpecifiedTests \
-            --runtests ${{ github.event.inputs.Apextests }}
+          echo "Deploying Apex classes: ${{ github.event.inputs.Apexclasses }}"
+          echo "Running Apex tests: ${{ github.event.inputs.Apextests }}"
+          sf project deploy validate --metadata ApexClass:${{ github.event.inputs.Apexclasses }} --testlevel RunSpecifiedTests --runtests ${{ github.event.inputs.Apextests }}
