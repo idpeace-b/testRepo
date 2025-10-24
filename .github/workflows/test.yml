@@ -47,4 +47,4 @@ jobs:
           sf project deploy validate \
             --metadata ApexClass:${{ github.event.inputs.Apexclasses }} \
             --test-level RunSpecifiedTests \
-            --runtests ${{ github.event.inputs.Apextests }}
+            --tests ${{ github.event.inputs.Apextests }}
