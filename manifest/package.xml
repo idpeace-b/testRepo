@@ -102,7 +102,6 @@
 		<members>CollaborationGroup</members>
 		<members>CollaborationGroupMember</members>
 		<members>CommSubscription</members>
-		<members>CommSubscriptionChannelType</members>
 		<members>CommSubscriptionConsent</members>
 		<members>CommSubscriptionTiming</members>
 		<members>ConsumptionRate</members>
@@ -156,7 +155,6 @@
 		<members>DuplicateRecordSet</members>
 		<members>EmailMessage</members>
 		<members>EngagementChannelType</members>
-		<members>EngagementChannelWorkType</members>
 		<members>Entitlement</members>
 		<members>EntitlementContact</members>
 		<members>EntityMilestone</members>
@@ -176,14 +174,12 @@
 		<members>FlowOrchestrationStepInstance</members>
 		<members>FlowOrchestrationVersion</members>
 		<members>FlowOrchestrationWorkItem</members>
-		<members>FulfillmentOrder</members>
 		<members>FulfillmentOrderItemAdjustment</members>
 		<members>FulfillmentOrderItemTax</members>
 		<members>FulfillmentOrderLineItem</members>
 		<members>Idea</members>
 		<members>IdentityResolution</members>
 		<members>Image</members>
-		<members>Incident</members>
 		<members>IncidentRelatedItem</members>
 		<members>Individual</members>
 		<members>InventoryItemReservation</members>
@@ -228,7 +224,6 @@
 		<members>OrgMetricScanSummary</members>
 		<members>PartnerRole</members>
 		<members>PartyConsent</members>
-		<members>Payment</members>
 		<members>PaymentAuthAdjustment</members>
 		<members>PaymentAuthorization</members>
 		<members>PaymentCredit</members>
