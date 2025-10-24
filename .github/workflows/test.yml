@@ -1,11 +1,11 @@
 name: Run Test Classes
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - force-app/**
+  #push:
+  #  branches:
+  #    - master
+  #  paths:
+  #    - force-app/**
   workflow_dispatch:
     inputs:
       Apexclasses:
@@ -44,7 +44,7 @@ jobs:
         run: |
           echo "Deploying Apexclasses: ${{ github.event.inputs.Apexclasses }}"
           echo "Running Apextests: ${{ github.event.inputs.Apextests }}"
-          sf project deploy validate --manifest manifest/package.xml
+          sf project deploy validate
             --metadata ApexClass:${{ github.event.inputs.Apexclasses }} \
             --testlevel RunSpecifiedTests \
             --runtests ${{ github.event.inputs.Apextests }}
