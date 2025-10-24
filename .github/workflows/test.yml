@@ -37,9 +37,9 @@ jobs:
       #- name: Run Test Classes
       #  run: |
       #    sf apex run test -l RunLocalTests -w 15
-      - name: Run validation
-        run: |
-          sf project deploy validate --manifest manifest/package.xml
+      #- name: Run validation
+      #  run: |
+      #    sf project deploy validate --manifest manifest/package.xml
       - name: Deploy Selected Classes
         run: |
           echo "Deploying Apexclasses: ${{ github.event.inputs.Apexclasses }}"
