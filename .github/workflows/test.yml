@@ -2,6 +2,8 @@ name: Run Test Classes
 
 on:
   push:
+    branches:
+      - master
     paths:
       - force-app/**
   #workflow_dispatch:  
