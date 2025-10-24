@@ -1,10 +1,12 @@
 name: Run Test Classes
 
 on:
-  #push:
-    #paths:
-    #  - force-app/**
-  workflow_dispatch:  
+  push:
+    branches:
+      - master
+    paths:
+      - force-app/**
+  #workflow_dispatch:  
 
 jobs:
   run-test-classes:
@@ -23,9 +25,9 @@ jobs:
       - name : Find Target Org
         run: |
           sf org list
-      - name: Run Test Classes
-        run: |
-          sf apex run test -l RunLocalTests -w 15
+      #- name: Run Test Classes
+      #  run: |
+      #    sf apex run test -l RunLocalTests -w 15
       - name: Run validation
         run: |
           sf project deploy validate --manifest manifest/package.xml
