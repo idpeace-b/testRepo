@@ -1,8 +1,8 @@
 name: Run Test Classes
 
 on:
-  push:
-    paths:
+  #push:
+    #paths:
     #  - force-app/**
   workflow_dispatch:  
 
