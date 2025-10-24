@@ -45,5 +45,6 @@ jobs:
           echo "Deploying Apex classes: ${{ github.event.inputs.Apexclasses }}"
           echo "Running Apex tests: ${{ github.event.inputs.Apextests }}"
           sf project deploy validate \
-          --metadata ApexClass:${{ github.event.inputs.Apexclasses }} \
-          --apex-tests ${{ github.event.inputs.Apextests }}
+            --metadata ApexClass:${{ github.event.inputs.Apexclasses }} \
+            --test-level RunSpecifiedTests \
+            --runtests ${{ github.event.inputs.Apextests }}
