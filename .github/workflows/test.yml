@@ -19,7 +19,7 @@ jobs:
           sf version
       - name: Login To Org
         run: |
-          sf org login sfdx-url -f <(echo "${{ secrets.SFDX_AUTH_URL_IDPEACE }}")
+          sf org login sfdx-url -f <(echo "${{ secrets.SFDX_AUTH_URL_IDPEACE }}") -s
       - name : Find Target Org
         run: |
           sf org list
