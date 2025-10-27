@@ -1,50 +1,56 @@
 name: Run Test Classes
 
 on:
-  #push:  ##automated runs on push to master branch as specified below
-  #  branches:
-  #    - master
-  #  paths:
-  #    - force-app/**
   workflow_dispatch:
     inputs:
-      Apexclasses:
-        description: 'Comma-separated Apex classes to deploy'
-        required: true
-        default: 'MyClass1,MyClass2'
       Apextests:
         description: 'Comma-separated test classes to run'
         required: true
-        default: 'MyClass1Test,MyClass2Test'  
+        default: 'MyClass1Test,MyClass2Test'
 
 jobs:
   run-test-classes:
     runs-on: ubuntu-latest
     steps:
+      # 1️⃣ Checkout the repo
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
+      # 2️⃣ Install Salesforce CLI
       - name: Install SFDX
         run: |
           npm install @salesforce/cli --global
           sf version
+
+      # 3️⃣ Login to org
       - name: Login To Org
         run: |
           sf org login sfdx-url -f <(echo "${{ secrets.SFDX_AUTH_URL_IDPEACE }}") -s
-      #- name : Find Target Org
-      #  run: |
-      #    sf org list
-      #- name: Run Test Classes
-      #  run: |
-      #    sf apex run test -l RunLocalTests -w 15
-      #- name: Run validation
-      #  run: |
-      #    sf project deploy validate --manifest manifest/package.xml
-      - name: Deploy Selected Classes
+
+      # 4️⃣ Build deploy-temp folder from git diff
+      - name: Build Temp Deployment Folder
         run: |
-          echo "Deploying Apex classes: ${{ github.event.inputs.Apexclasses }}"
-          echo "Running Apex tests: ${{ github.event.inputs.Apextests }}"
+          #!/bin/bash
+          set -e
+
+          echo "Creating temp deployment folder..."
+          mkdir -p deploy-temp
+
+          # Get all changed files in force-app relative to main
+          git fetch origin main
+          git diff --name-only origin/main...HEAD -- force-app | while read file; do
+              mkdir -p "deploy-temp/$(dirname "$file")"
+              cp "$file" "deploy-temp/$file"
+          done
+
+          echo "Temp deployment folder ready: deploy-temp"
+
+      # 5️⃣ Deploy from temp folder
+      - name: Deploy Changed Files
+        run: |
+          echo "Deploying all changed files from deploy-temp"
           sf project deploy validate \
-            --metadata ApexClass:${{ github.event.inputs.Apexclasses }} \
+            --source-dir deploy-temp \
             --test-level RunSpecifiedTests \
             --tests ${{ github.event.inputs.Apextests }}
