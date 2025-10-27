@@ -9,7 +9,7 @@
             <criteriaItems>
                 <field>Account.BillingCountry</field>
                 <operation>equals</operation>
-                <value>US,USA,United States,United States of Americas</value>
+                <value>US,USA,United States,United States of Americass</value>
             </criteriaItems>
             <criteriaItems>
                 <field>Account.SLA__c</field>
