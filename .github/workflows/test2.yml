@@ -1,0 +1,51 @@
+name: Run Test Classes No test classes
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-test-classes:
+    runs-on: ubuntu-latest
+    steps:
+      # 1️⃣ Checkout the repo
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # 2️⃣ Install Salesforce CLI
+      - name: Install SFDX
+        run: |
+          npm install @salesforce/cli --global
+          sf version
+
+      # 3️⃣ Login to org
+      - name: Login To Org
+        run: |
+          sf org login sfdx-url -f <(echo "${{ secrets.SFDX_AUTH_URL_IDPEACE }}") -s
+
+      # 4️⃣ Build deploy-temp folder from git diff
+      - name: Build Temp Deployment Folder
+        run: |
+          #!/bin/bash
+          set -e
+
+          echo "Creating temp deployment folder..."
+          mkdir -p deploy-temp
+
+          # Get all changed files in force-app relative to main
+          git fetch origin main
+          git diff --name-only origin/main...HEAD -- force-app | while read file; do
+              mkdir -p "deploy-temp/$(dirname "$file")"
+              cp "$file" "deploy-temp/$file"
+          done
+
+          echo "Temp deployment folder ready: deploy-temp"
+
+      # 5️⃣ Deploy from temp folder
+      - name: Deploy Changed Files
+        run: |
+          echo "Deploying all changed files from deploy-temp"
+          sf project deploy validate \
+            --source-dir deploy-temp \
+            --test-level RunSpecifiedTests \
+            --tests ${{ github.event.inputs.Apextests }}
