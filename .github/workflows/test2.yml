@@ -40,7 +40,11 @@ jobs:
           done
 
           echo "Temp deployment folder ready: deploy-temp"
-
+      # list all files    
+      - name: List Files to be Deployed
+        run: |
+          echo "Listing all files in deploy-temp:"
+          find deploy-temp -type f
       # 5️⃣ Deploy from temp folder
       - name: Deploy Changed Files
         run: |
