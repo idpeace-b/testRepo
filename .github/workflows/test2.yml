@@ -1,16 +1,7 @@
-name: Run Test Classes
+name: Run Test Classes No test classes
 
 on:
   workflow_dispatch:
-    inputs:
-      Apexclasses:
-        description: 'Comma-separated Apex classes to deploy'
-        required: true
-        default: 'MyClass1,MyClass2'
-      Apextests:
-        description: 'Comma-separated test classes to run'
-        required: true
-        default: 'MyClass1Test,MyClass2Test'  
 
 jobs:
   run-test-classes:
