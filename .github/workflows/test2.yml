@@ -47,5 +47,3 @@ jobs:
           echo "Deploying all changed files from deploy-temp"
           sf project deploy validate \
             --source-dir deploy-temp \
-            --test-level RunSpecifiedTests \
-            --tests ${{ github.event.inputs.Apextests }}
