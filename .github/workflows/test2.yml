@@ -32,9 +32,9 @@ jobs:
           echo "Creating temp deployment folder..."
           mkdir -p deploy-temp
 
-          # Get all changed files in force-app relative to main
-          git fetch origin main
-          git diff --name-only origin/main...HEAD -- force-app | while read file; do
+          # Get all changed files in force-app relative to master
+          git fetch origin master
+          git diff --name-only origin/master...HEAD -- force-app | while read file; do
               mkdir -p "deploy-temp/$(dirname "$file")"
               cp "$file" "deploy-temp/$file"
           done
