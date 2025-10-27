@@ -1,7 +1,7 @@
 name: Run Test Classes
 
 on:
-  #push:
+  #push:  ##automated runs on push to master branch as specified below
   #  branches:
   #    - master
   #  paths:
@@ -31,9 +31,9 @@ jobs:
       - name: Login To Org
         run: |
           sf org login sfdx-url -f <(echo "${{ secrets.SFDX_AUTH_URL_IDPEACE }}") -s
-      - name : Find Target Org
-        run: |
-          sf org list
+      #- name : Find Target Org
+      #  run: |
+      #    sf org list
       #- name: Run Test Classes
       #  run: |
       #    sf apex run test -l RunLocalTests -w 15
